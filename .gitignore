@@ -1,0 +1,3 @@
+credenciais
+terraform/*.terraform*
+terraform/*.tfstate*
