@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        ports:
+          - containerPort: 80
+            #        livenessProbe:
+            #          httpGet:
+            #            path: /
+            #            port: 9000
+            #          initialDelaySeconds: 5
+            #          periodSeconds: 5
+            #        readinessProbe:
+            #          httpGet:
+            #            path: /
+            #            port: 9000
+            #          initialDelaySeconds: 5
+            #          periodSeconds: 5
