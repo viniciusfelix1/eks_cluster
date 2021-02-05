@@ -18,6 +18,11 @@ variable "private_net" {
   default = ["192.168.128.0/18", "192.168.192.0/18"]
 }
 
+variable "qtd_eip"{
+  description = "Quantidade de EIPs que devem ser deployados."
+  default = "2"
+} 
+
 ## EKS
 variable "cluster_name" {
   description = "O nome que será dado ao cluster."
