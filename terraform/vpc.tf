@@ -25,7 +25,7 @@ resource "aws_subnet" "public" {
 
   tags = {
     "Name" = "Subnet pública"
-    format("kubernetes.io/cluster/%s",var.cluster_name) = "shared"
+#    format("kubernetes.io/cluster/%s",var.cluster_name) = "shared"
     "kubernetes.io/role/elb" = "1"
   }
 } 
@@ -72,11 +72,12 @@ resource "aws_route_table_association" "rede_publica" {
 }
 
 ### Parte comentada para testes posteriores.
-#resource "aws_eip" "main" {
-#}
-#
-#resource "aws_nat_gateway" "rede_priv" {
-# count = length(var.private_net)
-#  allocation_id = aws_eip.main.id
-#  subnet_id     = element(aws_subnet.private[*].id, count.index)
-#}
+resource "aws_eip" "main" {
+  count = var.qtd_eip
+}
+
+resource "aws_nat_gateway" "rede_priv" {
+ count = length(var.private_net)
+  allocation_id = element(aws_eip.main[*].id, count.index)
+  subnet_id     = element(aws_subnet.private[*].id, count.index)
+}
