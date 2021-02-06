@@ -28,3 +28,14 @@ variable "cluster_name" {
   description = "O nome que será dado ao cluster."
   default = "eks_cluster"
 }
+
+variable "node_group_name" {
+  description = "O nome que será dado ao node group utilizado pelo EKS."
+  default = "eks_group"
+}
+
+variable "node_group_instances" {
+  description = "O tipo de instância EC2 que será utilizada pelo node group."
+  default = ["t3.micro"]
+}
+
