@@ -25,7 +25,7 @@ resource "aws_subnet" "public" {
 
   tags = {
     "Name" = "Subnet pública"
-#    format("kubernetes.io/cluster/%s",var.cluster_name) = "shared"
+    format("kubernetes.io/cluster/%s",var.cluster_name) = "shared"
     "kubernetes.io/role/elb" = "1"
   }
 } 
@@ -61,6 +61,9 @@ resource "aws_route_table" "rede_publica" {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.gw.id
   }
+  tags = {
+    Name = "Tabela de rotas utilizadas pelas subredes públicas"
+  }
 }
 
 ## Associando a tabela criada à subnets publicas
@@ -71,13 +74,54 @@ resource "aws_route_table_association" "rede_publica" {
   route_table_id = aws_route_table.rede_publica.id
 }
 
-### Parte comentada para testes posteriores.
+## Reserva de IP para utilização no nat gateway
 resource "aws_eip" "main" {
+  vpc = true
   count = var.qtd_eip
+ 
+  tags = {
+    Name = "EIP utilizado pelo NAT Gateway das redes internas do EKS."
+  }
 }
 
+## Alocação do EIP para o Nat Gateway e para as sub redes públicas para utilização das redes privadas.
 resource "aws_nat_gateway" "rede_priv" {
  count = length(var.private_net)
   allocation_id = element(aws_eip.main[*].id, count.index)
-  subnet_id     = element(aws_subnet.private[*].id, count.index)
+  subnet_id     = element(aws_subnet.public[*].id, count.index)
+
+  tags = {
+    Name = "Gateway utilizado pela sub-redes do EKS."
+  }
+
+}
+
+## Criando uma tabela de rotas secundária e atrelando o NAT Gateway à esta tabela.
+resource "aws_route_table" "rede_privada" {
+  vpc_id = aws_vpc.main.id
+
+ count = length(var.private_net)
+
+   route {
+    cidr_block = "0.0.0.0/0"
+    nat_gateway_id = element(aws_nat_gateway.rede_priv[*].id, count.index)
+  }
+
+  tags = {
+    Name = "Tabela de rotas utilizada pelas redes privadas"
+  }
+}
+
+## Associando a tabela criada à subnets privada
+resource "aws_route_table_association" "rede_privada" {
+ count = length(var.private_net)
+
+  subnet_id      = element(aws_subnet.private[*].id, count.index)
+  route_table_id = element(aws_route_table.rede_privada[*].id, count.index)
+}
+
+## ---- Outputs ----
+
+output "eips" {
+value = aws_eip.main[*].public_ip
 }
