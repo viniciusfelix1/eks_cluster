@@ -43,6 +43,11 @@ variable "node_group_instances" {
   default = ["t3.micro"]
 }
 
+variable "node_group_min" {
+  description = "A quantidade minima/desejada de nós no cluster"
+  default = "2"
+}
+
 #
 ## RDS
 #
