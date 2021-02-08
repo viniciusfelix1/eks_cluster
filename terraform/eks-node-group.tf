@@ -7,9 +7,9 @@ resource "aws_eks_node_group" "main" {
   instance_types  = var.node_group_instances
 
   scaling_config {
-    desired_size = 2
+    desired_size = var.node_group_min
     max_size     = 4
-    min_size     = 2
+    min_size     = var.node_group_min
   }
 
   # Ensure that IAM Role permissions are created before and deleted after EKS Node Group handling.

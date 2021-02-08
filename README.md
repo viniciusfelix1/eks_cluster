@@ -61,4 +61,5 @@ E finalmente é possível realizar o deploy do ambiente:
 No momento é necessário ajustar a função de acesso para o EKS administrar o LB de forma manual.
 
 Documentação de referência: https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html
+
 A partir do passo "k" dentro de "Using the AWS Management Console and kubectl". A role criada terá o nome de "eks_lb_role"
