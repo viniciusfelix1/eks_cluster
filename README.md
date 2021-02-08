@@ -1,6 +1,6 @@
 # EKS Cluster
 
-Dentro deste repo estÃo arquivos utilizados para realizar um deploy do cluster EKS na AWS juntamente com os arquivos utilizado pelo helm para dar deploy da aplicaÃÃo mediawiki e uma stack de monitoramento.
+Dentro deste repo estão arquivos utilizados para realizar um deploy do cluster EKS na AWS juntamente com os arquivos utilizado pelo helm para dar deploy da aplicação mediawiki e uma stack de monitoramento.
 
 
 ---
@@ -45,8 +45,8 @@ E finalmente é possível realizar o deploy do ambiente:
 - [x] IAM para controle do Node Group
 - [x] Deploy do cluster do EKS
 - [x] Deploy do Node Group
-- [ ] Deploy do ALB
-- [ ] Deploy da instância do RDS
+- [x] Deploy do ALB
+- [x] Deploy da instância do RDS
 
 ### Helm
 
@@ -55,3 +55,10 @@ E finalmente é possível realizar o deploy do ambiente:
 - [ ] Service e ingress
 - [ ] Prometheus
 - [ ] Blackbox exporter
+
+## Observações
+
+No momento é necessário ajustar a função de acesso para o EKS administrar o LB de forma manual.
+
+Documentação de referência: https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html
+A partir do passo "k" dentro de "Using the AWS Management Console and kubectl". A role criada terá o nome de "eks_lb_role"
