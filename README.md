@@ -50,11 +50,20 @@ E finalmente é possível realizar o deploy do ambiente:
 
 ### Helm
 
-- [ ] Criação do deploy do mediawiik
+- [x] Criação do deploy do mediawiki
 - [ ] Storage
-- [ ] Service e ingress
-- [ ] Prometheus
+- [x] Service e ingress
+- [x] Prometheus
 - [ ] Blackbox exporter
+- [ ] Grafana
+
+### API
+
+A aplicação deve ser capaz de trazer a relação de páginas criadas no projeto em ordem alfabética.
+
+> https://www.mediawiki.org/w/api.php
+
+[ ] Desenvolvimento
 
 ## Observações
 
