@@ -3,3 +3,6 @@ credenciais
 terraform/*.terraform*
 terraform/*.tfstate*
 
+## Arquivos ignorados gerados pelo python
+api/supervisord.pid
+api/__pycache__
