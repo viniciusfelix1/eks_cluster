@@ -51,7 +51,7 @@ E finalmente é possível realizar o deploy do ambiente:
 ### Helm
 
 - [x] Criação do deploy do mediawiki
-- [ ] Storage
+- [ ] Storage class / PV / PVC
 - [x] Service e ingress
 - [x] Prometheus
 - [ ] Blackbox exporter
@@ -61,9 +61,12 @@ E finalmente é possível realizar o deploy do ambiente:
 
 A aplicação deve ser capaz de trazer a relação de páginas criadas no projeto em ordem alfabética.
 
-> https://www.mediawiki.org/w/api.php
+[x] Desenvolvimento
+[x] Docker image
+[ ] Envio para Docker Hub
+[ ] Criação do manifesto
 
-[ ] Desenvolvimento
+> https://www.mediawiki.org/w/api.php
 
 ## Observações
 
@@ -71,4 +74,19 @@ No momento é necessário ajustar a função de acesso para o EKS administrar o LB d
 
 Documentação de referência: https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html
 
-A partir do passo "k" dentro de "Using the AWS Management Console and kubectl". A role criada terá o nome de "eks_lb_role"
+Após realizar o ajuste da OIDC dentro da role do IAM, é necessário rodar os seguintes comandos:
+
+```
+# Realizar a criação da conta de serviço para o cluster fazer uso.
+kubectl apply -f recursos/aws-lb-controller-service-account.yaml
+
+# Instalar o recurso "TargetGroupBinding" personalizado.
+kubectl apply -k "github.com/aws/eks-charts/stable/aws-load-balancer-controller//crds?ref=master"
+
+# Adicionar o repositório com o chart
+helm repo add eks https://aws.github.io/eks-charts
+
+# Instalar o AWS Load Balancer Controller
+helm upgrade -i aws-load-balancer-controller eks/aws-load-balancer-controller --set clusterName=eks_cluster --set serviceAccount.create=false --set serviceAccount.name=aws-load-balancer-controller -n kube-system
+
+```
