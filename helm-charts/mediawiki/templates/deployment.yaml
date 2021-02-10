@@ -29,3 +29,10 @@ spec:
             port: 80
           initialDelaySeconds: 5
           periodSeconds: 5
+        volumeMounts:
+        - mountPath: "/var/www/html/images"
+          name: mediawiki
+      volumes:
+       - name: mediawiki
+         persistentVolumeClaim:
+           claimName: {{ .Chart.Name }}
