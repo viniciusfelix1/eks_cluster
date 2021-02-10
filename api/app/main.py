@@ -11,7 +11,7 @@
 """
 
 from flask import Flask, render_template
-
+import os
 import requests
 
 app = Flask(__name__)
@@ -20,9 +20,9 @@ app = Flask(__name__)
 def get_jobs():
     page_list = []
     S = requests.Session()
-    
-    URL = "http://wiki.vinicius.io/"
-    API_URL = "http://wiki.vinicius.io/api.php"
+
+    URL = os.getenv('URL')
+    API_URL = os.getenv('API_URL')
     
     PARAMS = {
         "action": "query",
@@ -39,6 +39,5 @@ def get_jobs():
     for page in PAGES:
       #  print(page["title"])
         page_list.append(page["title"])
-#    print(page_list)
     return render_template('lista.html',URL=URL,page_list=page_list)
 app.run(host='0.0.0.0',port=80)
