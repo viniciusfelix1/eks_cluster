@@ -12,6 +12,12 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+# Variaveis para o StorageClass
+sc:
+  type: gp2
+  fsType: ext4
+  
+
 serviceAccount:
   # Specifies whether a service account should be created
   create: true
