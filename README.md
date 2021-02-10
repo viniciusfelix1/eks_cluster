@@ -61,12 +61,12 @@ E finalmente é possível realizar o deploy do ambiente:
 
 A aplicação deve ser capaz de trazer a relação de páginas criadas no projeto em ordem alfabética.
 
-[x] Desenvolvimento
-[x] Docker image
-[ ] Envio para Docker Hub
-[ ] Criação do manifesto
-
 > https://www.mediawiki.org/w/api.php
+
+- [x] Desenvolvimento
+- [x] Docker image
+- [ ] Envio para Docker Hub
+- [ ] Criação do manifesto
 
 ## Observações
 
