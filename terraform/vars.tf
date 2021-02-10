@@ -40,7 +40,7 @@ variable "node_group_name" {
 
 variable "node_group_instances" {
   description = "O tipo de instância EC2 que será utilizada pelo node group."
-  default = ["t3.micro"]
+  default = ["t3.small"]
 }
 
 variable "node_group_min" {
