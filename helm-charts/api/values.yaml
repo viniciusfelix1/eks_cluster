@@ -28,8 +28,10 @@ securityContext: {}
   # runAsUser: 1000
 
 configmap:
-  API_URL: "https://en.wikipedia.org/w/api.php"
-  URL: "https://en.wikipedia.org/"
+#  API_URL: "https://en.wikipedia.org/w/api.php"
+#  URL: "https://en.wikipedia.org/"
+   API_URL: "http://mediawiki.default/api.php"
+   API_URL: "http://mediawiki.default/"
 
 service:
   type: ClusterIP
