@@ -31,8 +31,18 @@ spec:
           periodSeconds: 5
         volumeMounts:
         - mountPath: "/var/www/html/images"
-          name: mediawiki
+          name: mediawiki-img
+      #  - mountPath: "/var/www/html/session"
+      #    name: mediawiki-session
+        - mountPath: "/usr/local/etc/php"
+          name: config-php
       volumes:
-       - name: mediawiki
+       - name: mediawiki-img
          persistentVolumeClaim:
-           claimName: {{ .Chart.Name }}
+           claimName: "pvc-images"
+       #- name: mediawiki-session
+       #  persistentVolumeClaim:
+       #    claimName: "pvc-session"
+       - name: config-php
+         configMap:
+           name: {{ .Chart.Name }} 

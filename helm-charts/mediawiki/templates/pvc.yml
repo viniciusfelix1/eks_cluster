@@ -1,12 +1,27 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ .Chart.Name }}
+  name: "pvc-images"
   namespace: default
 spec:
   accessModes:
   - ReadWriteOnce
-  storageClassName: {{ .Chart.Name }}
+  storageClassName: "sc-images"
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: "pvc-session"
+  namespace: default
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: "sc-session"
   resources:
     requests:
       storage: 1Gi
