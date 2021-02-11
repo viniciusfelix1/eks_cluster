@@ -1,0 +1,6 @@
+dependencies:
+- name: mediawiki
+  repository: file://../mediawiki
+  version: 0.1.0
+digest: sha256:4fc40fe281e60d1a6dc73155c3422629914111f510439574f90e741437ecff89
+generated: "2021-02-11T00:52:42.682597837Z"
