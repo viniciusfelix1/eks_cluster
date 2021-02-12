@@ -7,3 +7,4 @@ RUN apt-get update && apt-get install -y libmemcached-dev zlib1g-dev \
     && tar xzf mediawiki-1.35.1.tar.gz \
     && mv mediawiki-1.35.1/* . \
     && rm -rf mediawiki-1.35.1*
+COPY LocalSettings.php /var/www/html/LocalSettings.php
