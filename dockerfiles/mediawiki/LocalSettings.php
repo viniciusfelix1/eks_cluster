@@ -1,8 +1,8 @@
 <?php
 
 #Busca de variaveis e mapeamento
-$URL = getenv("MEDIAWIKI_URL");
-$SITE = getenv("MEDIAWIKI_SITE");
+$MEDIAWIKI_URL = getenv("MEDIAWIKI_URL");
+$MEDIAWIKI_SITE = getenv("MEDIAWIKI_SITE");
 $MYSQL_HOST = getenv("MYSQL_HOST");
 $MYSQL_NAME = getenv("MYSQL_NAME");
 $MYSQL_USER = getenv("MYSQL_USER");
