@@ -18,16 +18,16 @@ sc:
   fsType: ext4
 
 # Informações sobre o site
-site: "Vinicius - Mediawiki"
-url: "wiki.vinicius.io"
+mediawiki_site: 'Vinicius-Mediawiki'
+mediawiki_url: 'wiki.vinicius.io'
 
 # Variaveis para conexão mediawiki x db
 # A Senha para o banco pode ser passada em base64. Para isso rode "echo -n "SENHA" | base64"
 dbConn:
-  host: "ENDEREÇO-BANCO"
-  name: "mediawiki"
-  user: "mediawiki"
-  pw: ""
+  host: 'mediawikirds.czg7vysvgykx.us-east-1.rds.amazonaws.com'
+  name: 'mediawikirds'
+  user: 'mediawiki'
+  pw: 'NmFad3RVV3R2UjQK'
 
 podAnnotations: {}
 

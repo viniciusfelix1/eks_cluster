@@ -12,37 +12,74 @@ spec:
       labels:
         app: {{ .Chart.Name }}
     spec:
+#      securityContext:
+#        fsGroup: 33
+#        runAsUser: 33
       containers:
       - name: {{ .Chart.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 80
         livenessProbe:
           httpGet:
             path: /
             port: 80
-          initialDelaySeconds: 5
+          initialDelaySeconds: 10
           periodSeconds: 5
         readinessProbe:
           httpGet:
             path: /
             port: 80
-          initialDelaySeconds: 5
+          initialDelaySeconds: 10
           periodSeconds: 5
         volumeMounts:
         - mountPath: "/var/www/html/images"
           name: mediawiki-img
-      #  - mountPath: "/var/www/html/session"
-      #    name: mediawiki-session
-        - mountPath: "/usr/local/etc/php"
-          name: config-php
+        - name: config-php
+          mountPath: "/usr/local/etc/php/php.ini"
+          subPath: php.ini
+#        - name: localconfig 
+#          mountPath: "/var/www/html/LocalSettings.php"
+#          subPath: LocalSettings.php
+        env:
+          - name: MEDIAWIKI_SITE
+            valueFrom:
+              configMapKeyRef:
+                name: wiki-db
+                key: mediawiki_site
+          - name: MEDIAWIKI_URL
+            valueFrom:
+              configMapKeyRef:
+                name: wiki-db
+                key: mediawiki_url
+          - name: MYSQL_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: wiki-db
+                key: mysql_host
+          - name: MYSQL_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: wiki-db
+                key: mysql_name
+          - name: USER
+            valueFrom:
+              configMapKeyRef:
+                name: wiki-db
+                key: mysql_user
+          - name: MYSQL_PW
+            valueFrom:
+              secretKeyRef:
+                name: wiki-db
+                key: mysql_pw
       volumes:
        - name: mediawiki-img
          persistentVolumeClaim:
            claimName: "pvc-images"
-       #- name: mediawiki-session
-       #  persistentVolumeClaim:
-       #    claimName: "pvc-session"
        - name: config-php
          configMap:
            name: {{ .Chart.Name }} 
+#       - name: localconfig
+#         configMap: 
+#           name: "localconfig"

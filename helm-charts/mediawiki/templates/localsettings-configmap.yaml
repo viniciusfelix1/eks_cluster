@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: wiki-db
+data:
+  mediawiki_site: {{ .Values.mediawiki_site }}
+  mediawiki_url: {{ .Values.mediawiki_site }}
+  mysql_host: {{ .Values.dbConn.host }}
+  mysql_name: {{ .Values.dbConn.name }}
+  mysql_user: {{ .Values.dbConn.user }}

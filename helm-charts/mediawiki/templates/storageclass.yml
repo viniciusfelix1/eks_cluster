@@ -6,14 +6,3 @@ provisioner: kubernetes.io/aws-ebs
 parameters:
   type: {{ .Values.sc.type }}
   fsType: {{ .Values.sc.fsType}}
-
----
-
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: "sc-session"
-provisioner: kubernetes.io/aws-ebs
-parameters:
-  type: {{ .Values.sc.type }}
-  fsType: {{ .Values.sc.fsType }}
