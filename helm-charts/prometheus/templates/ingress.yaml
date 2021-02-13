@@ -1,4 +1,3 @@
-#apiVersion: networking.k8s.io/v1
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -10,11 +9,19 @@ metadata:
       alb.ingress.kubernetes.io/target-type: ip
 spec:
   rules:
-    - http:
+    - host: "prometheus.vinicius.io"
+      http:
         paths:
           - path: /*
             pathType: Prefix
             backend:
               serviceName: {{ .Chart.Name }}
-              servicePort: {{ .Values.service.port }} 
-      host: prometheus.vinicius.io
+              servicePort: {{ .Values.service.port }}
+    - host: "grafana.vinicius.io"
+      http:
+        paths:
+          - path: "/*"
+            pathType: Prefix
+            backend:
+              serviceName: grafana
+              servicePort: 3000

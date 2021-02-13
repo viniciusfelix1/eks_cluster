@@ -8,7 +8,7 @@ namespace:
 replicaCount: 1
 
 image:
-  repository: nginx
+  repository: prom/prometheus
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
@@ -45,9 +45,14 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
+sc:
+  type: gp2
+  fsType: ext4
+
 service:
   type: ClusterIP
   port: 80
+  grafanaPort: 3000
 
 ingress:
   enabled: false
