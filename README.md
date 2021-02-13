@@ -51,11 +51,11 @@ E finalmente é possível realizar o deploy do ambiente:
 ### Helm
 
 - [x] Criação do deploy do mediawiki
-- [ ] Storage class / PV / PVC
+- [x] Storage class / PV / PVC
 - [x] Service e ingress
 - [x] Prometheus
+- [x] Grafana
 - [ ] Blackbox exporter
-- [ ] Grafana
 
 ### API
 
@@ -65,8 +65,8 @@ A aplicação deve ser capaz de trazer a relação de páginas criadas no projeto em 
 
 - [x] Desenvolvimento
 - [x] Docker image
-- [ ] Envio para Docker Hub
-- [ ] Criação do manifesto
+- [x] Envio para Docker Hub
+- [x] Criação do manifesto
 
 ## Observações
 
@@ -74,7 +74,10 @@ No momento é necessário ajustar a função de acesso para o EKS administrar o LB d
 
 Documentação de referência: https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html
 
-Após realizar o ajuste da OIDC dentro da role do IAM, é necessário rodar os seguintes comandos:
+Para o ajuste manual do OIDC na role, acesse o painel de administração, vá em roles (funções), clique na role "eks_lb_role", depois vá na aba de relações de confiança, pegue o ID em "Entidades confiáveis", vá em "Editar relações de confiança", substitua o ID na condição e por fim clique em "Atualizar política de confiança".
+
+
+O terraform irá provisionar os recursos necessários através do helm dentro do cluster, todavia,segue necessário ajuste manual do OIDC dentro do permissionamento.
 
 ```
 # Realizar a criação da conta de serviço para o cluster fazer uso.
