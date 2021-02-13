@@ -38,7 +38,7 @@ $wgSitename = "$MEDIAWIKI_SITE";
 $wgScriptPath = "";
 
 ## The protocol and server name to use in fully-qualified URLs
-$wgServer = "$MEDIAWIKI_URL";
+$wgServer = "//$MEDIAWIKI_URL";
 
 ## The URL path to static resources (images, scripts, etc.)
 $wgResourceBasePath = $wgScriptPath;
