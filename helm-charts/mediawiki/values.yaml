@@ -6,7 +6,7 @@ replicaCount: 2
 
 image:
   repository: viniciusfelix1/mediawiki
-  tag: 1.0.0 # stable-fpm-alpine
+  tag: latest
 
 imagePullSecrets: []
 nameOverride: ""
@@ -18,7 +18,7 @@ sc:
   fsType: ext4
 
 # Informações sobre o site
-mediawiki_site: 'Vinicius-Mediawiki'
+mediawiki_site: 'Vinicius Mediawiki'
 mediawiki_url: 'wiki.vinicius.io'
 
 # Variaveis para conexão mediawiki x db
@@ -27,7 +27,7 @@ dbConn:
   host: 'mediawikirds.czg7vysvgykx.us-east-1.rds.amazonaws.com'
   name: 'mediawikirds'
   user: 'mediawiki'
-  pw: 'NmFad3RVV3R2UjQK'
+  pw: 'NmFad3RVV3R2UjQ='
 
 podAnnotations: {}
 
