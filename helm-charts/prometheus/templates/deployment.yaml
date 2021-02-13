@@ -17,7 +17,8 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}
-          image: prom/prometheus
+#          image: prom/prometheus
+          image: {{ .Values.image.repository }}
           args:
             {{ range .Values.container.args }}
               - {{ . }}
