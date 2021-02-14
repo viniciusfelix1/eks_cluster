@@ -56,7 +56,7 @@ E finalmente é possível realizar o deploy do ambiente:
 - [x] Prometheus
 - [x] Grafana
 - [x] Blackbox exporter
-- [ ] Criar dashboard para o grafana
+- [x] Criar dashboard para o grafana
 
 ### API
 
@@ -78,7 +78,7 @@ Documentação de referência: https://docs.aws.amazon.com/eks/latest/userguide/aws
 Para o ajuste manual do OIDC na role, acesse o painel de administração, vá em roles (funções), clique na role "eks_lb_role", depois vá na aba de relações de confiança, pegue o ID em "Entidades confiáveis", vá em "Editar relações de confiança", substitua o ID na condição e por fim clique em "Atualizar política de confiança".
 
 
-O terraform irá provisionar os recursos necessários através do helm dentro do cluster, todavia,segue necessário ajuste manual do OIDC dentro do permissionamento.
+O terraform irá provisionar os recursos necessários do LB Controller através do helm dentro do cluster, todavia,segue necessário ajuste manual do OIDC dentro do permissionamento.
 
 ```
 # Realizar a criação da conta de serviço para o cluster fazer uso.
