@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Chart.Name }}
+  name: prometheus
   namespace: {{ .Values.namespace.name }}
   labels:
     app: prometheus-server
@@ -9,15 +9,14 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Chart.Name }}
+      app: prometheus
   template:
     metadata:
       labels:
-        app: {{ .Chart.Name }}
+        app: prometheus
     spec:
       containers:
-        - name: {{ .Chart.Name }}
-#          image: prom/prometheus
+        - name: prometheus
           image: {{ .Values.image.repository }}
           args:
             {{ range .Values.container.args }}
@@ -26,15 +25,15 @@ spec:
           ports:
             - containerPort: 9090
           volumeMounts:
-            - name: {{ .Chart.Name }}
+            - name: prometheusconfig
               mountPath: /etc/prometheus/
             - name: prometheus-storage-volume
               mountPath: /prometheus/
       volumes:
-        - name: {{ .Chart.Name }}
+        - name: prometheusconfig
           configMap:
             defaultMode: 420
-            name: {{ .Chart.Name }}
+            name: prometheuscm
   
         - name: prometheus-storage-volume
           emptyDir: {}

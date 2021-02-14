@@ -1,0 +1,4 @@
+1. Get the application ingress by running these commands:
+   kubectl get ingress -n {{ .Values.namespace.name }}
+3. Ping ALB URL to get its IP
+2. Put the A IP in /etc/hosts pointing to domains that kubectl showed

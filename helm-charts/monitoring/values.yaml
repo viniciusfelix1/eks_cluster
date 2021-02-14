@@ -1,0 +1,33 @@
+# Default values for prometheus.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+namespace:
+  name: monitoring
+
+replicaCount: 1
+
+image:
+  repository: prom/prometheus
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+container:
+ args: 
+   - --config.file=/etc/prometheus/prometheus.yml
+   - --storage.tsdb.path=/prometheus/
+sc:
+  type: gp2
+  fsType: ext4
+
+service:
+  type: ClusterIP
+  port: 80
+  grafanaPort: 3000
+  blackboxPort: 9115
+
+blackbox:
+  targets:
+    - http://mediawiki.default.svc
+    - http://api.default.svc
