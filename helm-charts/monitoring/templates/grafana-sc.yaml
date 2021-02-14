@@ -6,3 +6,8 @@ provisioner: kubernetes.io/aws-ebs
 parameters:
   type: {{ .Values.sc.type }}
   fsType: {{ .Values.sc.fsType}}
+allowedTopologies:
+- matchLabelExpressions:
+  - key: failure-domain.beta.kubernetes.io/zone
+    values:
+    - {{ .Values.sc.az }}

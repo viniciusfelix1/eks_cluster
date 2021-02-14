@@ -1,4 +1,5 @@
 1. Get the application ingress by running these commands:
-   kubectl get ingress -n {{ .Values.namespace.name }}
+   ING=$(kubectl get ingress -n {{ .Values.namespace.name }}| awk '{print $4}' | sed -n '2p') 
 3. Ping ALB URL to get its IP
+   ping -c1 $ING | awk '{print $3}' | head -n1
 2. Put the A IP in /etc/hosts pointing to domains that kubectl showed

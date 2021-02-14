@@ -14,7 +14,7 @@ data:
                 "name": "prometheus",
                 "orgId": 1,
                 "type": "prometheus",
-                "url": "http://prometheus-service.monitoring.svc:{{ .Values.service.port }}",
+                "url": "http://prometheus.monitoring.svc:{{ .Values.service.port }}",
                 "version": 1
             }
         ]

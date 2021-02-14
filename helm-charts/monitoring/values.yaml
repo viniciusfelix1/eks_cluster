@@ -20,6 +20,7 @@ container:
 sc:
   type: gp2
   fsType: ext4
+  az: us-east-1a
 
 service:
   type: ClusterIP
@@ -29,5 +30,5 @@ service:
 
 blackbox:
   targets:
-    - http://mediawiki.default.svc
+    - http://mediawiki.default.svc/index.php/Main_Page
     - http://api.default.svc
