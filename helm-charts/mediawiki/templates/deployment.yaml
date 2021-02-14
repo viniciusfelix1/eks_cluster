@@ -1,0 +1,100 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      initContainers:
+      - name: restoredb
+        image: viniciusfelix1/mariadb-restore
+        env:
+          - name: MYSQL_USER   
+            valueFrom:
+              configMapKeyRef: 
+                name: wikidb
+                key: mysql_user
+          - name: MYSQL_HOST   
+            valueFrom:
+              configMapKeyRef: 
+                name: wikidb
+                key: mysql_host
+          - name: MYSQL_NAME   
+            valueFrom:
+              configMapKeyRef: 
+                name: wikidb
+                key: mysql_name
+          - name: MYSQL_PW
+            valueFrom:
+              secretKeyRef:
+                name: wiki-db
+                key: mysql_pw         
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 80
+#        livenessProbe:
+#          httpGet:
+#            path: /
+#            port: 80
+#          initialDelaySeconds: 15
+#          periodSeconds: 10
+#        readinessProbe:
+#          httpGet:
+#            path: /
+#            port: 80
+#          initialDelaySeconds: 15
+#          periodSeconds: 10
+        volumeMounts:
+        - mountPath: "/var/www/html/images"
+          name: mediawiki-img
+        - name: config-php
+          mountPath: "/usr/local/etc/php/php.ini"
+          subPath: php.ini
+        env:
+          - name: MEDIAWIKI_SITE
+            valueFrom:
+              configMapKeyRef:
+                name: wikidb
+                key: mediawiki_site
+          - name: MEDIAWIKI_URL
+            valueFrom:
+              configMapKeyRef:
+                name: wikidb
+                key: mediawiki_url
+          - name: MYSQL_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: wikidb
+                key: mysql_host
+          - name: MYSQL_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: wikidb
+                key: mysql_name
+          - name: MYSQL_USER
+            valueFrom:
+              configMapKeyRef:
+                name: wikidb
+                key: mysql_user
+          - name: MYSQL_PW
+            valueFrom:
+              secretKeyRef:
+                name: wiki-db
+                key: mysql_pw
+      volumes:
+       - name: mediawiki-img
+         persistentVolumeClaim:
+           claimName: "pvc-images"
+       - name: config-php
+         configMap:
+           name: {{ .Chart.Name }} 

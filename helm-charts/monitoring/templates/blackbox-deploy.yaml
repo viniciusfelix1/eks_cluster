@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blackbox-exporter
+  namespace: {{ .Values.namespace.name }}
+  labels:
+    app: blackbox
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: blackbox
+  template:
+    metadata:
+      labels:
+        app: blackbox
+    spec:
+      containers:
+        - name: blackbox
+          image: prom/blackbox-exporter
+          ports:
+            - containerPort: 9115
+          volumeMounts:
+            - name: blackboxconfig
+              mountPath: /etc/blackbox_exporter/
+      volumes:
+        - name: blackboxconfig
+          configMap:
+            defaultMode: 420
+            name: blackbox

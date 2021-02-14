@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: "grafana-storage"
+  namespace: {{ .Values.namespace.name }}
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: "sc-grafana"
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: "grafana-dash"
+  namespace: {{ .Values.namespace.name }}
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: "sc-grafana"
+  resources:
+    requests:
+      storage: 1Gi

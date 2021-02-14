@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  namespace: {{ .Values.namespace.name }}
+  name: monitoring-ingress
+  annotations:
+      kubernetes.io/ingress.class: alb
+      alb.ingress.kubernetes.io/scheme: internet-facing
+      alb.ingress.kubernetes.io/target-type: ip
+spec:
+  rules:
+    - host: "prometheus.vinicius.io"
+      http:
+        paths:
+          - path: /*
+            pathType: Prefix
+            backend:
+              serviceName: prometheus
+              servicePort: {{ .Values.service.port }}
+    - host: "grafana.vinicius.io"
+      http:
+        paths:
+          - path: "/*"
+            pathType: Prefix
+            backend:
+              serviceName: grafana
+              servicePort: 3000

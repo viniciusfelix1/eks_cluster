@@ -1,0 +1,28 @@
+# Default values for api.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: viniciusfelix1/getallpages
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+
+configmap:
+#  API_URL: "https://en.wikipedia.org/w/api.php"
+#  URL: "https://en.wikipedia.org/"
+  API_URL: "http://mediawiki/api.php"
+  URL: "http://wiki.vinicius.io/"
+
+service:
+  type: ClusterIP
+  port: 80
+

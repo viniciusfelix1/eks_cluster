@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: "pvc-images"
+  namespace: default
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: "sc-images"
+  resources:
+    requests:
+      storage: 1Gi
+
