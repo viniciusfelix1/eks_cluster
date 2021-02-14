@@ -24,7 +24,7 @@
     {
       "type": "datasource",
       "id": "prometheus",
-      "name": "proometheus",
+      "name": "prometheus",
       "version": "1.0.0"
     },
     {
