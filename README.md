@@ -55,7 +55,8 @@ E finalmente é possível realizar o deploy do ambiente:
 - [x] Service e ingress
 - [x] Prometheus
 - [x] Grafana
-- [ ] Blackbox exporter
+- [x] Blackbox exporter
+- [ ] Criar dashboard para o grafana
 
 ### API
 
